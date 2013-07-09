@@ -22,11 +22,4 @@
 		<nature>com.adobe.flexbuilder.project.apollonature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>[source path] source</name>
-			<type>2</type>
-			<location>/Volumes/Documents/Projets/_SDK/feathers/gitHub/feathers/source</location>
-		</link>
-	</linkedResources>
 </projectDescription>

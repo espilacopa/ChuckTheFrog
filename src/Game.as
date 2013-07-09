@@ -35,8 +35,7 @@ package
             // the contentScaleFactor is calculated from stage size and viewport size
             Assets.contentScaleFactor = Starling.current.contentScaleFactor;
 			// InGame screen.
-			
-			_screenInGame = new InGame((Assets.levels.level.(id=="0") as XML));
+			_screenInGame = new InGame(Assets.levels.(@id=="0")[0]);
 			this.addChild(_screenInGame);
 			// Welcome screen.
 			addEventListener(NavigationEvent.WELCOMREADY, chargeNext)
@@ -64,7 +63,7 @@ package
 				}
 				case "score":{				
 					_screenInGame.disposeTemporarily();
-					_screenInGame.level = Assets.levels.level.(id=="0")[0]
+					_screenInGame.level = Assets.levels.(@id=="0")[0]
 					_screenInGame.reset()
 					_screenWelcome.initialize();
 					break

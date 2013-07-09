@@ -85,6 +85,7 @@ package
 				var ba:ByteArray = (new LevelsGameXML()) as ByteArray;
 				var s:String = ba.readUTFBytes( ba.length );
 				_levels = new XML( s );
+				
 			}
 		}
 		/**

@@ -71,7 +71,6 @@ package screens
 			_hero.y = stage.stageHeight -newHeight-10
 		
 			_hero.y = stage.stageHeight -_hero.height
-				trace(">> "+(_level.toXMLString()))
 			_fliesCloud = new CloudFlies(stage.stageWidth-300,stage.stageHeight,Number(_level.@nbFlies))
 			_fliesCloud.x = 300;
 			_fliesCloud.y =  stage.stageHeight/2 - _fliesCloud.height/2;
