@@ -14,10 +14,12 @@
 package gameElements
 {
 	import flash.geom.Rectangle;
+	
 	import feathers.display.Scale9Image;
 	import feathers.textures.Scale9Textures;
 	
 	import starling.core.Starling;
+	import starling.display.Image;
 	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -40,7 +42,9 @@ package gameElements
 		/** State of the hero. */
 		private var _state:int;
 		private var _speedTongue:Number = 50
-			;
+		private var _bkg:Image;
+		private var _initT:Number;
+		private var _distT:Number;
 		
 		public function Hero()
 		{
@@ -74,17 +78,22 @@ package gameElements
 		 */
 		private function createHeroArt():void
 		{
-			_tongue = new Scale9Image(new Scale9Textures(Assets.getAtlasTexture("tongue0000"),new Rectangle(53,0,1,43)));
-			_tongue.visible =true
-			_tongue.x = 60;
-			_tongue.y = 35;
+			_bkg = new Image(Assets.getAtlasTexture("nenuphare0000"))
+			this.addChild(_bkg);
+			_tongue = new Scale9Image(new Scale9Textures(Assets.getAtlasTexture("tongue0000"),new Rectangle(40,0,1,43)));
+			_tongue.alpha =0
+			_initT = _tongue.width
 			_tongue.pivotX=40
 			this.addChild(_tongue);
 			
 			heroArt = new MovieClip(Assets.getAtlasTextures("FrogGame"), 2);
 			starling.core.Starling.juggler.add(heroArt);
 			heroArt.stop()
+			_bkg.x =-_bkg.width*.2	
+			_bkg.y=heroArt.height-_bkg.height*.8
 			this.addChild(heroArt);
+			_tongue.x = heroArt.width*.75;
+			_tongue.y = heroArt.height*.35;
 		}
 		
 		/**
@@ -96,7 +105,8 @@ package gameElements
 		
 		public function shoot($dist:Number,$ang:Number):void{
 			_tongue.visible = true
-			_tongue.width = $dist+40
+			_distT = $dist+_tongue.pivotX+_tongue.x
+			_tongue.width = _distT
 			_tongue.rotation = $ang
 			heroArt.currentFrame = 1		
 			addEventListener(Event.ENTER_FRAME,moveTongue)
@@ -105,6 +115,7 @@ package gameElements
 		private function moveTongue($e:Event):void
 		{
 			_tongue.width -= _speedTongue
+			_tongue.alpha =	_tongue.width/_distT+.1	
 				if(_tongue.width<20){
 					_tongue.visible = false
 					heroArt.currentFrame = 0

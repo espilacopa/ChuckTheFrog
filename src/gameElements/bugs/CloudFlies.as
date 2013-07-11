@@ -30,8 +30,8 @@ package gameElements.bugs
 		{
 			
 			super();
-			_width = $with
-			_height = $height
+			_width = $with - $with*.08
+			_height = $height-$height*.08
 			_tabFlies = new Array()
 			if ($nbFlies)addFlies($nbFlies)
 			_touchTest = new Quad(_width,_height)

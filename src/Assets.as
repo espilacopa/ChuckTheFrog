@@ -14,9 +14,12 @@
 package 
 {
 	import flash.display.Bitmap;
+	import flash.media.Sound;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	
+	import starling.text.BitmapFont;
+	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -51,7 +54,15 @@ package
 		[Embed(source="../media/graphics/bgWelcome.jpg")]
 		public static const BgWelcome:Class;
 		
+		// true type fonts
 		
+		[Embed(source="../media/fonts/Ubuntu-R.ttf", embedAsCFF="false", fontFamily="Ubuntu")]        
+		private static const UbuntuRegular:Class;
+		
+		// sounds
+		
+		[Embed(source="../media/audio/click.mp3")]
+		private static const Click:Class;
 		
 		private static var sContentScaleFactor:int = 1;
 		/**
@@ -60,8 +71,9 @@ package
 		
 		private static var sTextures:Dictionary = new Dictionary();
 		private static var sTextureAtlas:TextureAtlas;
-		
+		private static var sSounds:Dictionary = new Dictionary();
 		private static var _levels:XML;
+		private static var sBitmapFontsLoaded:Boolean;
 		
 		public static function get levels():XML
 		{
@@ -87,6 +99,29 @@ package
 				_levels = new XML( s );
 				
 			}
+		}
+		
+		public static function getSound(name:String):Sound
+		{
+			var sound:Sound = sSounds[name] as Sound;
+			if (sound) return sound;
+			else throw new ArgumentError("Sound not found: " + name);
+		}
+		
+		public static function loadBitmapFonts():void
+		{
+			if (!sBitmapFontsLoaded)
+			{
+				var texture:Texture = getTexture("DesyrelTexture");
+				var xml:XML = XML(create("DesyrelXml"));
+				TextField.registerBitmapFont(new BitmapFont(texture, xml));
+				sBitmapFontsLoaded = true;
+			}
+		}
+		
+		public static function prepareSounds():void
+		{
+			sSounds["Click"] = new Click();   
 		}
 		/**
 		 * Returns a texture from this class based on a string key.
@@ -131,6 +166,7 @@ package
 			for each (var texture:Texture in sTextures)
 			texture.dispose();
 			sTextures = new Dictionary();
+			trace('sContentScaleFactor '+sContentScaleFactor)
 			sContentScaleFactor = value < 1.5 ? 1 : 2; // assets are available for factor 1 and 2 
 		}
 	}

@@ -1,5 +1,6 @@
 package screens
 {
+	
 	import events.GameEvent;
 	import events.NavigationEvent;
 	
@@ -10,7 +11,6 @@ package screens
 	import gameElements.powers.PowerTongue;
 	
 	import starling.core.Starling;
-	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 
@@ -21,11 +21,12 @@ package screens
 		private var _hero:Hero;
 		private var _fliesCloud:CloudFlies
 		private var _currentPower:IPower
-		
+		/*
 		private var _source:Quad
 		private var _touch:Quad
-		
+		*/
 		private var _level:XML
+		private var _timer:TimerFrog;
 		public function InGame($level:XML)
 		{
 			_level = $level
@@ -71,29 +72,32 @@ package screens
 			_hero.y = stage.stageHeight -newHeight-10
 		
 			_hero.y = stage.stageHeight -_hero.height
-			_fliesCloud = new CloudFlies(stage.stageWidth-300,stage.stageHeight,Number(_level.@nbFlies))
-			_fliesCloud.x = 300;
+			_fliesCloud = new CloudFlies(stage.stageWidth-200,stage.stageHeight,Number(_level.@nbFlies))
+			_fliesCloud.x = 200;
 			_fliesCloud.y =  stage.stageHeight/2 - _fliesCloud.height/2;
 			_fliesCloud.active()
 			addChild(_fliesCloud)
 			_fliesCloud.addEventListener(GameEvent.HitFlie,tapFlie)
 			_fliesCloud.addEventListener(GameEvent.AllFliesHit,endGame)
-			
+				
+			_timer = new TimerFrog()	
+			addChild(_timer)
+			/*
 			_source = new Quad(3,3,0xff)
 			_touch= new Quad(3,3,0xffff)
 			addChild(_source)
-			addChild(_touch)
+			addChild(_touch)*/
 		}
 		
 		private function tapFlie($event:Event):void
 		{
 			var px:Number = $event.data.globalX-(_hero.x+_hero.tongue.x ) ;
 			var py:Number = $event.data.globalY-(_hero.y+_hero.tongue.y) ;
-			_touch.x = $event.data.globalX
+		/*	_touch.x = $event.data.globalX
 			_touch.y = $event.data.globalY	
 				
 			_source.x = 	_hero.x+_hero.tongue.x
-			_source.y = 	_hero.y+_hero.tongue.y
+			_source.y = 	_hero.y+_hero.tongue.y*/
 			// rotation du trait vers la position de la souris
 			var rad:Number = Math.atan2(py, px);// calcul de l'angle entre 2 points en radian
 			var deg:Number = rad * (180 / Math.PI);// conversion en degrée
@@ -143,8 +147,7 @@ package screens
 			_hero=null;
 			_fliesCloud=null	
 			_currentPower=null
-			_source=null
-			_touch=null
+			
 			drawGame()
 		}
 	}

@@ -15,6 +15,7 @@ package
 		private var _screenInGame:InGame;
 		private var _levelId:int=0
 			
+		private var _currentLevel:int=0;
         
         public function Game()
         {
@@ -28,6 +29,8 @@ package
 		
         private function init():void
         {
+			Assets.prepareSounds();
+			Assets.loadBitmapFonts();
             // we create the game with a fixed stage size -- only the viewPort is variable.
             stage.stageWidth  = Constants.STAGE_WIDTH;
             stage.stageHeight = Constants.STAGE_HEIGHT;
@@ -35,7 +38,7 @@ package
             // the contentScaleFactor is calculated from stage size and viewport size
             Assets.contentScaleFactor = Starling.current.contentScaleFactor;
 			// InGame screen.
-			_screenInGame = new InGame(Assets.levels.(@id=="0")[0]);
+			_screenInGame = new InGame(Assets.levels.level.(@id==String(_currentLevel))[0]);
 			this.addChild(_screenInGame);
 			// Welcome screen.
 			addEventListener(NavigationEvent.WELCOMREADY, chargeNext)
@@ -63,7 +66,15 @@ package
 				}
 				case "score":{				
 					_screenInGame.disposeTemporarily();
-					_screenInGame.level = Assets.levels.(@id=="0")[0]
+					_screenInGame.level = Assets.levels.level.(@id==String(_currentLevel))[0]
+					_screenInGame.reset()
+					_screenWelcome.initialize();
+					break
+				}
+				case "nextLevel":{
+					_currentLevel++
+					_screenInGame.disposeTemporarily();
+					_screenInGame.level = Assets.levels.level.(@id==String(_currentLevel))[0]
 					_screenInGame.reset()
 					_screenWelcome.initialize();
 					break

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<level id="0" nbFlies="300">
-	<tabEnemies>
-		<enemie id="1" nb="0"/>
-	</tabEnemies>
-</level>
+<levels>
+	<level id="0" nbFlies="10" timer="40">
+		<tabEnemies>
+			<enemie id="1" nb="0"/>
+		</tabEnemies>
+	</level>
+	<level id="1" nbFlies="50" timer="40">
+		<tabEnemies>
+			<enemie id="1" nb="0"/>
+		</tabEnemies>
+	</level>
+</levels>
