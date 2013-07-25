@@ -48,26 +48,17 @@ package screens
 			
 			_bg = new Image(Assets.getTexture("Background"));
 			
-			var ratio:Number = _bg.width/_bg.height
 			
-			if(Constants.STAGE_RATIO<ratio){			
-				_bg.width = Constants.STAGE_WIDTH
-				_bg.height= _bg.width/ratio
-			}else{
-				_bg.height = Constants.STAGE_HEIGHT
-				_bg.width =  _bg.height*ratio
-			}
-			_bg.x = (Constants.STAGE_WIDTH - _bg.width )/2
-			_bg.y = (Constants.STAGE_HEIGHT - _bg.height )/2
 			_bg.blendMode = BlendMode.NONE;
 			this.addChild(_bg);
+			_bg.width = stage.stageWidth
 			
-			
+			_bg.height = stage.stageHeight			
 			_playBtn = new Button(Assets.getAtlasTexture("FrogStart0000"));
-			
-			ratio = _playBtn.width/_playBtn.height
-			_playBtn.width = _bg.width/3
-			_playBtn.height = _playBtn.width /ratio
+			trace(_playBtn.height)
+			//ratio = _playBtn.width/_playBtn.height
+			//_playBtn.width = _bg.width/3
+			//_playBtn.height = _playBtn.width /ratio
 			_playBtn.x = stage.stageWidth/2 - _playBtn.width/2;
 			_playBtn.y =  stage.stageHeight/2 - _playBtn.height/2;
 			_playBtn.addEventListener(Event.TRIGGERED, onPlayClick);

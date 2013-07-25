@@ -89,11 +89,11 @@ package gameElements
 			heroArt = new MovieClip(Assets.getAtlasTextures("FrogGame"), 2);
 			starling.core.Starling.juggler.add(heroArt);
 			heroArt.stop()
-			_bkg.x =-_bkg.width*.2	
 			_bkg.y=heroArt.height-_bkg.height*.8
 			this.addChild(heroArt);
 			_tongue.x = heroArt.width*.75;
 			_tongue.y = heroArt.height*.35;
+			trace( heroArt.height)
 		}
 		
 		/**

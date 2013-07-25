@@ -52,7 +52,7 @@ package gameElements
 			
 			_bkg = new Image(Assets.getTexture("BgLayer1"));
 			var ratio:Number = _bkg.width/_bkg.height
-			if(Constants.STAGE_RATIO<1){
+			/*if(Constants.STAGE_RATIO<1){
 				
 				_bkg.width = Constants.STAGE_WIDTH
 				_bkg.height= _bkg.width/ratio
@@ -60,10 +60,10 @@ package gameElements
 				_bkg.height = Constants.STAGE_HEIGHT
 				_bkg.width =  _bkg.height*ratio
 			}
-				
+				*/
+			_bkg.width = stage.stageWidth
+			_bkg.height = stage.stageHeight
 			
-			_bkg.x = (Constants.STAGE_WIDTH - _bkg.width )/2
-			_bkg.y = (Constants.STAGE_HEIGHT - _bkg.height )/2
 			_bkg.blendMode = BlendMode.NONE;
 			this.addChild(_bkg);
 			

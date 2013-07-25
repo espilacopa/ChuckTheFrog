@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assets>
+	<asset id="atlas" type="png" name="frog.png"/>
+	<asset id="atlasXml" type="xml" name="frog.xml"/>
+	<asset id="BgLayer1" type="png"  name="gameBKG.png"/>
+	<asset id="BgLayer2" type="png"  name="gameBKG_layerTop.png"/>
+	<asset id="BgLayer3" type="png"  name="gameBKG_Front.png"/>
+	<asset id="Background" type="jpg"  name="bgWelcome.jpg"/>
+	<asset id="Loading" type="png"  name="loading.png"/>
+</assets>

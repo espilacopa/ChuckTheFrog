@@ -5,9 +5,10 @@ package
     import screens.InGame;
     import screens.Welcome;
     
-    import starling.core.Starling;
     import starling.display.Sprite;
     import starling.events.Event;
+    
+    import utils.LoaderAssets;
 
     public class Game extends Sprite
     {
@@ -16,6 +17,7 @@ package
 		private var _levelId:int=0
 			
 		private var _currentLevel:int=0;
+		private var _loaderAssets:LoaderAssets;
         
         public function Game()
         {
@@ -32,11 +34,23 @@ package
 			Assets.prepareSounds();
 			Assets.loadBitmapFonts();
             // we create the game with a fixed stage size -- only the viewPort is variable.
-            stage.stageWidth  = Constants.STAGE_WIDTH;
-            stage.stageHeight = Constants.STAGE_HEIGHT;
+          //  stage.stageWidth  = Constants.STAGE_WIDTH;
+           // stage.stageHeight = Constants.STAGE_HEIGHT;
             
             // the contentScaleFactor is calculated from stage size and viewport size
-            Assets.contentScaleFactor = Starling.current.contentScaleFactor;
+			trace(stage.stageHeight+' '+stage.stageWidth)
+			if(stage.stageHeight<=320) Assets.contentScaleFactor = 1
+			else if(stage.stageHeight<=480) Assets.contentScaleFactor = 2	
+			else if(stage.stageHeight<=768) Assets.contentScaleFactor = 3
+			
+			_loaderAssets = new LoaderAssets()
+			_loaderAssets.addEventListener(LoaderAssets.COMPLETE,setUp)
+			
+		}
+		
+		private function setUp($e:*):void
+		{
+			
 			// InGame screen.
 			_screenInGame = new InGame(Assets.levels.level.(@id==String(_currentLevel))[0]);
 			this.addChild(_screenInGame);

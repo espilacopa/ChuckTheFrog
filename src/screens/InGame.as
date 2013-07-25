@@ -63,14 +63,14 @@ package screens
 			
 			_hero = new Hero();	
 			this.addChild(_hero);
-			
+			/*
 			var newHeight:Number =_hero.height
 			if(_hero.height>(.4*stage.stageHeight)){
 				newHeight = _hero.height = _hero.height/2
 				_hero.width = _hero.width/2
 			}
 			_hero.y = stage.stageHeight -newHeight-10
-		
+*/		
 			_hero.y = stage.stageHeight -_hero.height
 			_fliesCloud = new CloudFlies(stage.stageWidth-200,stage.stageHeight,Number(_level.@nbFlies))
 			_fliesCloud.x = 200;

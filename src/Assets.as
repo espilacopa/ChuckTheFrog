@@ -14,7 +14,11 @@
 package 
 {
 	import flash.display.Bitmap;
+	import flash.events.Event;
+	import flash.filesystem.File;
 	import flash.media.Sound;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	
@@ -74,20 +78,63 @@ package
 		private static var sSounds:Dictionary = new Dictionary();
 		private static var _levels:XML;
 		private static var sBitmapFontsLoaded:Boolean;
+		private static var _loader:URLLoader;
+		private static var _xml:XML;
+		private static var _png:Bitmap;
+		private static var _BgLayer1:Bitmap;
+		private static var _BgLayer2:Bitmap;
+		private static var _BgLayer3:Bitmap;
+		private static var _Background:Bitmap;
+		private static var _Loading:Bitmap;
 		
+		
+		public static function set BgLayer1(value:Bitmap):void
+		{
+			_BgLayer1 = value;
+		}
+
+		public static function set BgLayer2(value:Bitmap):void
+		{
+			_BgLayer2 = value;
+		}
+
+		public static function set BgLayer3(value:Bitmap):void
+		{
+			_BgLayer3 = value;
+		}
+
+		public static function set Background(value:Bitmap):void
+		{
+			_Background = value;
+		}
+
+		public static function set Loading(value:Bitmap):void
+		{
+			_Loading = value;
+		}
+
+		public static function set atlas(value:Bitmap):void
+		{
+			_png = value;
+			
+		}
+
+		public static function set atlasXml(value:XML):void
+		{
+			_xml = value;
+		}
+
 		public static function get levels():XML
 		{
 			getLevels()
 			return _levels;
 		}
-
 		private static function prepareAtlas():void
 		{
 			if (sTextureAtlas == null)
 			{
-				var texture:Texture = getTexture("AtlasGameTexture");
-				var xml:XML = XML(create("AtlasGameXML"));
-				sTextureAtlas = new TextureAtlas(texture, xml);
+				var texture:Texture =  Texture.fromBitmap(_png, true, false);
+				sTextureAtlas = new TextureAtlas(texture, _xml);
 			}
 		}
 		private static function getLevels():void
@@ -136,9 +183,9 @@ package
 				var data:Object = create(name);
 				
 				if (data is Bitmap)
-					sTextures[name] = Texture.fromBitmap(data as Bitmap, true, false, sContentScaleFactor);
+					sTextures[name] = Texture.fromBitmap(data as Bitmap, true, false);
 				else if (data is ByteArray)
-					sTextures[name] = Texture.fromAtfData(data as ByteArray, sContentScaleFactor);
+					sTextures[name] = Texture.fromAtfData(data as ByteArray);
 			}
 			
 			return sTextures[name];
@@ -157,7 +204,19 @@ package
 		}
 		private static function create(name:String):Object
 		{
-			var textureClass:Class = sContentScaleFactor == 1 ? AssetEmbeds_1x : AssetEmbeds_2x;
+			var textureClass:Class
+			trace("create "+name+" "+sContentScaleFactor)
+			switch(sContentScaleFactor){
+				case 1:
+					textureClass =AssetEmbeds_1x
+					break;
+				case 2:
+					textureClass =AssetEmbeds_2x
+					break;
+				case 3:
+					textureClass =AssetEmbeds_3x
+					break
+			}
 			return new textureClass[name];
 		}
 		public static function get contentScaleFactor():Number { return sContentScaleFactor; }
@@ -166,8 +225,8 @@ package
 			for each (var texture:Texture in sTextures)
 			texture.dispose();
 			sTextures = new Dictionary();
-			trace('sContentScaleFactor '+sContentScaleFactor)
-			sContentScaleFactor = value < 1.5 ? 1 : 2; // assets are available for factor 1 and 2 
+			trace('sContentScaleFactor '+value)
+			sContentScaleFactor = value; // assets are available for factor 1 and 2 amd 3
 		}
 	}
 }
