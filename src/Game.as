@@ -50,7 +50,7 @@ package
 		
 		private function setUp($e:*):void
 		{
-			
+			trace("setUp")
 			// InGame screen.
 			_screenInGame = new InGame(Assets.levels.level.(@id==String(_currentLevel))[0]);
 			this.addChild(_screenInGame);

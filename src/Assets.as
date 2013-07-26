@@ -14,11 +14,8 @@
 package 
 {
 	import flash.display.Bitmap;
-	import flash.events.Event;
-	import flash.filesystem.File;
 	import flash.media.Sound;
 	import flash.net.URLLoader;
-	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	
@@ -87,43 +84,9 @@ package
 		private static var _Background:Bitmap;
 		private static var _Loading:Bitmap;
 		
+		private static var _tabAssets:Array
 		
-		public static function set BgLayer1(value:Bitmap):void
-		{
-			_BgLayer1 = value;
-		}
-
-		public static function set BgLayer2(value:Bitmap):void
-		{
-			_BgLayer2 = value;
-		}
-
-		public static function set BgLayer3(value:Bitmap):void
-		{
-			_BgLayer3 = value;
-		}
-
-		public static function set Background(value:Bitmap):void
-		{
-			_Background = value;
-		}
-
-		public static function set Loading(value:Bitmap):void
-		{
-			_Loading = value;
-		}
-
-		public static function set atlas(value:Bitmap):void
-		{
-			_png = value;
-			
-		}
-
-		public static function set atlasXml(value:XML):void
-		{
-			_xml = value;
-		}
-
+		
 		public static function get levels():XML
 		{
 			getLevels()
@@ -133,9 +96,24 @@ package
 		{
 			if (sTextureAtlas == null)
 			{
-				var texture:Texture =  Texture.fromBitmap(_png, true, false);
-				sTextureAtlas = new TextureAtlas(texture, _xml);
+				trace("test "+ (getAssets('atlasXml') is XML)  )
+				var texture:Texture =  Texture.fromBitmap(Bitmap(getAssets('atlas')), true, false);
+				trace("texture : "+texture	)
+				sTextureAtlas = new TextureAtlas(texture, XML(getAssets('atlasXml')));
+				
 			}
+		}
+		
+		private static function getAssets($id:String):Object
+		{
+			trace("getAssets "+$id)
+			var obj:Object
+			var lg:int = _tabAssets.length
+			for(var i:int=0;i<lg;i++){
+				if(_tabAssets[i].id==$id) return _tabAssets[i].data
+			}
+			trace("not found")
+			return null
 		}
 		private static function getLevels():void
 		{
@@ -148,22 +126,31 @@ package
 			}
 		}
 		
+		public static function setAsset($id:String,$obj:*):void{
+			trace("addAsset "+$id)
+			if(!_tabAssets)_tabAssets = new Array()
+			_tabAssets.push({id:$id,data:$obj})
+		}
+		
 		public static function getSound(name:String):Sound
 		{
+			/*
 			var sound:Sound = sSounds[name] as Sound;
 			if (sound) return sound;
 			else throw new ArgumentError("Sound not found: " + name);
+			*/
+			return null
 		}
 		
 		public static function loadBitmapFonts():void
 		{
-			if (!sBitmapFontsLoaded)
+			/*if (!sBitmapFontsLoaded)
 			{
 				var texture:Texture = getTexture("DesyrelTexture");
 				var xml:XML = XML(create("DesyrelXml"));
 				TextField.registerBitmapFont(new BitmapFont(texture, xml));
 				sBitmapFontsLoaded = true;
-			}
+			}*/
 		}
 		
 		public static function prepareSounds():void
@@ -178,17 +165,17 @@ package
 		 */
 		public static function getTexture(name:String):Texture
 		{
-			if (sTextures[name] == undefined)
-			{
-				var data:Object = create(name);
-				
-				if (data is Bitmap)
-					sTextures[name] = Texture.fromBitmap(data as Bitmap, true, false);
-				else if (data is ByteArray)
-					sTextures[name] = Texture.fromAtfData(data as ByteArray);
-			}
 			
-			return sTextures[name];
+				var data:Object = getAssets(name);
+				var tex:Texture
+				if (data is Bitmap)
+					tex = Texture.fromBitmap(data as Bitmap, true, false);
+				else if (data is ByteArray)
+					tex = Texture.fromAtfData(data as ByteArray);
+			
+			
+			return tex;
+			
 		}
 		
 		public static function getAtlasTexture(name:String):Texture
@@ -204,20 +191,10 @@ package
 		}
 		private static function create(name:String):Object
 		{
-			var textureClass:Class
+			
 			trace("create "+name+" "+sContentScaleFactor)
-			switch(sContentScaleFactor){
-				case 1:
-					textureClass =AssetEmbeds_1x
-					break;
-				case 2:
-					textureClass =AssetEmbeds_2x
-					break;
-				case 3:
-					textureClass =AssetEmbeds_3x
-					break
-			}
-			return new textureClass[name];
+			
+			return [name];
 		}
 		public static function get contentScaleFactor():Number { return sContentScaleFactor; }
 		public static function set contentScaleFactor(value:Number):void 

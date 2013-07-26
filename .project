@@ -29,6 +29,11 @@
 			<location>/Volumes/Documents/Projets/_SDK/BulkLoader/src</location>
 		</link>
 		<link>
+			<name>[source path] as3</name>
+			<type>2</type>
+			<location>/Volumes/Documents/Projets/_SDK/jpeg-decoder 2/as3</location>
+		</link>
+		<link>
 			<name>[source path] as3corelib-src</name>
 			<type>2</type>
 			<location>/Volumes/Documents/Projets/_SDK/as3corelib/src</location>

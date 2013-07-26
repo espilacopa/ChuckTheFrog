@@ -6,6 +6,7 @@
       <compilerSourcePathEntry kind="1" linkType="1" path="/Volumes/Documents/Projets/_SDK/feathers/gitHub/feathers/source"/>
       <compilerSourcePathEntry kind="1" linkType="1" path="/Volumes/Documents/Projets/_SDK/as3corelib/src"/>
       <compilerSourcePathEntry kind="1" linkType="1" path="/Volumes/Documents/Projets/_SDK/BulkLoader/src"/>
+      <compilerSourcePathEntry kind="1" linkType="1" path="/Volumes/Documents/Projets/_SDK/jpeg-decoder 2/as3"/>
     </compilerSourcePath>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
