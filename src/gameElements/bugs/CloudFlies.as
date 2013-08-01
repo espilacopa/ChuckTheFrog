@@ -35,7 +35,7 @@ package gameElements.bugs
 			_tabFlies = new Array()
 			if ($nbFlies)addFlies($nbFlies)
 			_touchTest = new Quad(_width,_height)
-			_touchTest.alpha =0.1
+			_touchTest.alpha =0
 			addChild(_touchTest)
 			
 		}
@@ -108,9 +108,9 @@ package gameElements.bugs
 				var test:Boolean = false
 				if(flie.x<0){flie.x=0;
 					flie.vectorDir.inverse()} 
-				if(flie.x>_width){flie.x=_width;
+				if(flie.x>(_width-flie.width)){flie.x=_width-flie.width;
 					flie.vectorDir.inverse()}
-				if(flie.y>_height){flie.y=_height;
+				if(flie.y>(_height-flie.height)){flie.y=_height-flie.height;
 					flie.vectorDir.inverse()}
 				if(flie.y<0){flie.y=0;
 					flie.vectorDir.inverse()}

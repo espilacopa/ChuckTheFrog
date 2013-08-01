@@ -1,13 +1,10 @@
 /**
  *
- * Hungry Hero Game
- * http://www.hungryherogame.com
+ * Chuck the Frog
+ * http://www.espilacopa.com
  * 
- * Copyright (c) 2012 Hemanth Sharma (www.hsharma.com). All rights reserved.
+ * Copyright (c) 2013 Ludovic Piquet. All rights reserved.
  * 
- * This ActionScript source code is free.
- * You can redistribute and/or modify it in accordance with the
- * terms of the accompanying Simplified BSD License Agreement.
  *  
  */
 
@@ -16,6 +13,7 @@ package
 	import flash.display.Bitmap;
 	import flash.media.Sound;
 	import flash.net.URLLoader;
+	import flash.text.TextFormat;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	
@@ -23,6 +21,9 @@ package
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	import starling.utils.Color;
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 	
 	/**
 	 * This class holds all embedded textures, fonts and sounds and other embedded files.  
@@ -34,26 +35,17 @@ package
 	 */
 	public class Assets
 	{
-		/**
-		 * Texture Atlas 
-		 */
-		[Embed(source="../media/graphics/frog.png")]
-		public static const AtlasGameTexture:Class;
+	//	[Embed(source="../media/fonts/1x/desyrel.fnt", mimeType="application/octet-stream")]
+		//public static const DesyrelXml:Class;
 		
-		[Embed(source="../media/graphics/frog.xml", mimeType="application/octet-stream")]
-		public static const AtlasGameXML:Class;
-		/**
-		 * Texture Atlas 
-		 */
+		//[Embed(source = "../media/fonts/1x/desyrel.png")]
+		//public static const DesyrelTexture:Class;
+		
 		[Embed(source="../media/levels.xml", mimeType="application/octet-stream")]
 		public static const LevelsGameXML:Class;
 		/**
 		 * Background Assets 
 		 */
-		
-		
-		[Embed(source="../media/graphics/bgWelcome.jpg")]
-		public static const BgWelcome:Class;
 		
 		// true type fonts
 		
@@ -96,9 +88,7 @@ package
 		{
 			if (sTextureAtlas == null)
 			{
-				trace("test "+ (getAssets('atlasXml') is XML)  )
 				var texture:Texture =  Texture.fromBitmap(Bitmap(getAssets('atlas')), true, false);
-				trace("texture : "+texture	)
 				sTextureAtlas = new TextureAtlas(texture, XML(getAssets('atlasXml')));
 				
 			}
@@ -106,13 +96,11 @@ package
 		
 		private static function getAssets($id:String):Object
 		{
-			trace("getAssets "+$id)
 			var obj:Object
 			var lg:int = _tabAssets.length
 			for(var i:int=0;i<lg;i++){
 				if(_tabAssets[i].id==$id) return _tabAssets[i].data
 			}
-			trace("not found")
 			return null
 		}
 		private static function getLevels():void
@@ -127,30 +115,29 @@ package
 		}
 		
 		public static function setAsset($id:String,$obj:*):void{
-			trace("addAsset "+$id)
 			if(!_tabAssets)_tabAssets = new Array()
 			_tabAssets.push({id:$id,data:$obj})
 		}
 		
 		public static function getSound(name:String):Sound
 		{
-			/*
+			
 			var sound:Sound = sSounds[name] as Sound;
 			if (sound) return sound;
 			else throw new ArgumentError("Sound not found: " + name);
-			*/
+			
 			return null
 		}
 		
 		public static function loadBitmapFonts():void
 		{
-			/*if (!sBitmapFontsLoaded)
+			if (!sBitmapFontsLoaded)
 			{
 				var texture:Texture = getTexture("DesyrelTexture");
 				var xml:XML = XML(create("DesyrelXml"));
 				TextField.registerBitmapFont(new BitmapFont(texture, xml));
 				sBitmapFontsLoaded = true;
-			}*/
+			}
 		}
 		
 		public static function prepareSounds():void
@@ -191,9 +178,6 @@ package
 		}
 		private static function create(name:String):Object
 		{
-			
-			trace("create "+name+" "+sContentScaleFactor)
-			
 			return [name];
 		}
 		public static function get contentScaleFactor():Number { return sContentScaleFactor; }
@@ -204,6 +188,28 @@ package
 			sTextures = new Dictionary();
 			trace('sContentScaleFactor '+value)
 			sContentScaleFactor = value; // assets are available for factor 1 and 2 amd 3
+		}
+		
+		public static function factoryText($with:int, $heitgh:int, $text:String, $font:String, $size:int, $color:uint, $Halign:String,$VAlign:String):TextField
+		{
+			
+			trace($with+"  "+$heitgh+"  "+$text+"  "+$font+"  "+$size+"  "+$color+"  "+$Halign+"  "+$VAlign)
+			var textField:TextField = new TextField($with, $heitgh, $text, $font, $size, $color);
+			
+			textField.hAlign = HAlign.RIGHT;  // horizontal alignment
+			//textField.border = true;
+			var offset:int = 10;
+			var ttFont:String = "Ubuntu";
+			var ttFontSize:int = 19; 
+			
+			var colorTF:TextField = new TextField(300, 80, 
+				"TextFields can have a border and a color. They can be aligned in different ways, ...", 
+				ttFont, ttFontSize);
+			colorTF.x = colorTF.y = offset;
+			colorTF.border = true;
+			colorTF.color = 0x333399;
+			
+			return textField
 		}
 	}
 }

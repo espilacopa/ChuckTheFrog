@@ -1,6 +1,8 @@
 package screens
 {
 	
+	import flash.text.TextFormat;
+	
 	import events.GameEvent;
 	import events.NavigationEvent;
 	
@@ -13,6 +15,9 @@ package screens
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.utils.Color;
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 
 	public class InGame extends Sprite
 	{
@@ -61,6 +66,7 @@ package screens
 			_bg = new GameBackground();
 			this.addChild(_bg);
 			
+			
 			_hero = new Hero();	
 			this.addChild(_hero);
 			/*
@@ -87,6 +93,12 @@ package screens
 			_touch= new Quad(3,3,0xffff)
 			addChild(_source)
 			addChild(_touch)*/
+			
+			
+			
+			addChild(Assets.factoryText(100, 100, "120", "Ubuntu", 80, Color.RED,HAlign.RIGHT,VAlign.BOTTOM))
+			
+			
 		}
 		
 		private function tapFlie($event:Event):void

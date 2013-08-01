@@ -17,7 +17,6 @@ package utils
 	import br.com.stimuli.loading.BulkLoader;
 	import br.com.stimuli.loading.BulkProgressEvent;
 	
-	import org.bytearray.decoder.JPEGDecoder;
 	
 	
 	public class LoaderAssets extends Sprite

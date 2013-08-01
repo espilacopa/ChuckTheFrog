@@ -30,9 +30,9 @@ package
         }
 		
         private function init():void
-        {
+		{
 			Assets.prepareSounds();
-			Assets.loadBitmapFonts();
+			//Assets.loadBitmapFonts();
             // we create the game with a fixed stage size -- only the viewPort is variable.
           //  stage.stageWidth  = Constants.STAGE_WIDTH;
            // stage.stageHeight = Constants.STAGE_HEIGHT;
