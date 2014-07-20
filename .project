@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ChuckTheFrog</name>
+	<name>ChuckTheFrog_old</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,17 +26,17 @@
 		<link>
 			<name>[source path] BulkLoader-src</name>
 			<type>2</type>
-			<location>/Users/StarMaker/Documents/Perso/_utils/sdk/BulkLoader/src</location>
+			<location>/Users/Nelson/Projects/_SDK/BulkLoader/src</location>
 		</link>
 		<link>
 			<name>[source path] as3corelib-src</name>
 			<type>2</type>
-			<location>/Users/StarMaker/Documents/Perso/_utils/sdk/as3corelib/src</location>
+			<location>/Users/Nelson/Projects/_SDK/as3corelib/src</location>
 		</link>
 		<link>
 			<name>[source path] source</name>
 			<type>2</type>
-			<location>/Users/StarMaker/Documents/Perso/_utils/sdk/feathers/source</location>
+			<location>/Users/Nelson/Projects/_SDK/feathers/source</location>
 		</link>
 	</linkedResources>
 </projectDescription>
